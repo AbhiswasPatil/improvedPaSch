@@ -56,9 +56,9 @@ def main():
     while True:
         print("\n")
         print("1. Add a new worker.")
-        print("2. Update an existing worker's threshold.")
+        #print("2. Update an existing worker's threshold.")
         print("3. Remove a worker.")
-        print("4. View all workers.")
+        #print("4. View all workers.")
         print("5. View all functions in the registry.")
         print("6. View all packages in the registry.")
         print("7. Execute a function")
@@ -75,6 +75,7 @@ def main():
                 scheduler.addWorker(Worker(w_id,thres))
                 print("Worker {} successfully added!".format(w_id))
             case 2:
+                
                 w_id = input("Enter worker id: ")
                 thres = int(input("Enter worker's threshold: "))
                 for i, worker in enumerate(workers):
@@ -84,10 +85,11 @@ def main():
                 print("Worker {} successfully updated!".format(w_id))
             case 3:
                 w_id = input("Enter worker id: ")
-                for i, worker in enumerate(workers):
-                    if w_id == worker["worker_id"]:
-                        del workers[i]
-                print("Worker {} successfully removed!".format(w_id))
+                # for i, worker in enumerate(workers):
+                #     if w_id == worker["worker_id"]:
+                #         del workers[i]
+                # print("Worker {} successfully removed!".format(w_id))
+                scheduler.removeWorker(w_id)
             case 4:
                 print("Workers: ", workers)
             case 5:

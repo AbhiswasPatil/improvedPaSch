@@ -25,7 +25,7 @@ class ConsistentHash:
             return
         self.hr.remove_node(worker)
         self.workers.remove(worker)
-        print("Workers added to ConsitentHash: ", worker)
+        print("Workers removed from ConsitentHash: ", worker)
 
     def getWorker(self, package_id):
         worker = self.hr.get_node(package_id)
