@@ -1,5 +1,3 @@
-# DO: import threshold, cachedCleanTime from globalVariables files
-
 # Assumptions : workers and worker is just worker_id or worker_name not worker object
 
 class Worker:
@@ -10,8 +8,6 @@ class Worker:
         self.cachedPackages = []
         # Dict which shows last executed time for a package on this worker node
         self.lastExecutedTime = {}
-        # DO :self.threshold = threshold
-        # DO : self.cacheCleanTime = cacheCleanTime
         self.runningFunctions = [] #list containing {finish_time,function_id}
 
     def updateRuningFunctionsList(self,timestamp):
