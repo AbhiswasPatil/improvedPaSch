@@ -12,7 +12,7 @@ class ConsistentHash:
         print("ConsistentHash initialised with workers: ", workers)
 
     def addWorker(self, worker):
-        if worker in self.worker:
+        if worker in self.workers:
             print("Worker already in the cluster")
             return
         self.hr.add_node(worker)
@@ -20,7 +20,7 @@ class ConsistentHash:
         print("Workers added to ConsitentHash: ", worker)
 
     def removeWorker(self, worker):
-        if worker not in self.worker:
+        if worker not in self.workers:
             print("Worker is not in the cluster")
             return
         self.hr.remove_node(worker)

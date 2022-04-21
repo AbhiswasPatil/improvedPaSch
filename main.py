@@ -72,7 +72,7 @@ def main():
             case 1:
                 w_id = input("Enter worker id: ")
                 thres = int(input("Enter worker's threshold: "))
-                workers.append({"worker_id": w_id, "threshold": thres})
+                scheduler.addWorker(Worker(w_id,thres))
                 print("Worker {} successfully added!".format(w_id))
             case 2:
                 w_id = input("Enter worker id: ")
