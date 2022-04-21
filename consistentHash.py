@@ -1,7 +1,7 @@
 #  hashring takes input of "package_id" and return "worker_id"
 from uhashring import HashRing
 
-# Assumptions : workers and worker is just worker_id or worker_name not worker object
+# Assumptions : workers array used for consistentHash is array of worker_id 
 
 
 class ConsistentHash:
@@ -15,6 +15,7 @@ class ConsistentHash:
         if worker in self.workers:
             print("Worker already in the cluster")
             return
+
         self.hr.add_node(worker)
         self.workers.append(worker)
         print("Workers added to ConsitentHash: ", worker)
@@ -23,6 +24,7 @@ class ConsistentHash:
         if worker not in self.workers:
             print("Worker is not in the cluster")
             return
+            
         self.hr.remove_node(worker)
         self.workers.remove(worker)
         print("Workers removed from ConsitentHash: ", worker)
