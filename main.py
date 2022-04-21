@@ -73,16 +73,17 @@ def main():
                 w_id = input("Enter worker id: ")
                 thres = int(input("Enter worker's threshold: "))
                 scheduler.addWorker(Worker(w_id,thres))
+
                 print("Worker {} successfully added!".format(w_id))
-            case 2:
+            # case 2:
                 
-                w_id = input("Enter worker id: ")
-                thres = int(input("Enter worker's threshold: "))
-                for i, worker in enumerate(workers):
-                    if w_id == worker["worker_id"]:
-                        worker["threshold"] = thres
-                        break
-                print("Worker {} successfully updated!".format(w_id))
+            #     w_id = input("Enter worker id: ")
+            #     thres = int(input("Enter worker's threshold: "))
+            #     for i, worker in enumerate(workers):
+            #         if w_id == worker["worker_id"]:
+            #             worker["threshold"] = thres
+            #             break
+            #     print("Worker {} successfully updated!".format(w_id))
             case 3:
                 w_id = input("Enter worker id: ")
                 # for i, worker in enumerate(workers):
@@ -90,8 +91,8 @@ def main():
                 #         del workers[i]
                 # print("Worker {} successfully removed!".format(w_id))
                 scheduler.removeWorker(w_id)
-            case 4:
-                print("Workers: ", workers)
+            # case 4:
+            #     print("Workers: ", workers)
             case 5:
                 print("Functions: ", fn)
             case 6:
@@ -100,6 +101,7 @@ def main():
                 f_id = input("Enter the function id: ")
                 t_stamp = int(input("Enter the timestamp: "))
                 print(scheduler.assignWorker(f_id, t_stamp))
+                
                 print("Function {} successfully executed!".format(f_id))
             case 8:
                 t_stamp = int(input("Enter the timestamp: "))
