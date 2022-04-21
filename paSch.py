@@ -1,7 +1,6 @@
 #it will also have consistentHash, and will use it to access worker_id (consitentHash <-> workers)
 
 import math
-from sqlite3 import Timestamp
 import string
 
 from requests import delete
@@ -57,18 +56,19 @@ class PaSch:
         oldWorkerNodes = self.workers
         workerNodes = self.updateStaleWorkerData(oldWorkerNodes,timestamp)
         
+        workerDetails = []
+
         for i in range(0,len(workerNodes)) :
-            print("worker_id:",workerNodes[i].worker_id)
-            print("threshold",workerNodes[i].threshold)
-            print("currentLoad",workerNodes[i].currentLoad)
-            print("functionsRunning",workerNodes[i].runningFunctions)
-            
-            print("lastExecutedTime",workerNodes[i].lastExecutedTime)
-            print("\n:::::::\n")
+            workerDetails.append({"worker_id:":workerNodes[i].worker_id,
+            "threshold":workerNodes[i].threshold,
+            "currentLoad":workerNodes[i].currentLoad,
+            "runningFunctions":workerNodes[i].runningFunctions,
+            "lastExecutedTime":workerNodes[i].lastExecutedTime,
+            })
         
         self.workers = workerNodes
 
-        return
+        return workerDetails
 
     def updateStaleWorkerData(self,workerNodes,timestamp):
         
@@ -83,12 +83,12 @@ class PaSch:
                 if(workerNodes[i].lastExecutedTime[key] + cacheCleanTime > timestamp) :
                     #time to remove cached pkg is yet to come hence keep them as they are in the map
                     newLastExecutedTime[key] = workerNodes[i].lastExecutedTime[key]
-                    print(key,"is previously run at", workerNodes[i].lastExecutedTime[key] )
-                    print("its included in new list as well")
+                    # print(key,"is previously run at", workerNodes[i].lastExecutedTime[key] )
+                    # print("its included in new list as well")
             
             workerNodes[i].lastExecutedTime.clear()
             workerNodes[i].lastExecutedTime.update(newLastExecutedTime)
-            print("for worker_id",workerNodes[i].worker_id,"it has",workerNodes[i].lastExecutedTime)
+            # print("for worker_id",workerNodes[i].worker_id,"it has",workerNodes[i].lastExecutedTime)
 
         return workerNodes
 
