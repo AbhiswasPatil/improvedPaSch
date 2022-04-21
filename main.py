@@ -114,25 +114,5 @@ def main():
             case default:
                 continue
 
-    # print(scheduler.assignWorker("foo", 1))
-    # print(scheduler.assignWorker("foo", 2))
-    # print(scheduler.assignWorker("bar", 2))
-    # print(scheduler.assignWorker("bar", 3))
-    # print(scheduler.assignWorker("foo", 1))
-    # print(scheduler.assignWorker("foo", 2))
-    # print(scheduler.assignWorker("par", 2))
-    # print(scheduler.assignWorker("par", 3))
-    # print(scheduler.assignWorker("bar", 1))
-    # print(scheduler.assignWorker("foo", 2))
-    # print(scheduler.assignWorker("par", 2))
-    # print(scheduler.assignWorker("bar", 3))
-
-    # send requests from here
-    # DO : for x in fn_inst
-
-    # for getWorker Details create an option in while loop of inctructions to run it at a timestamp
-    # scheduler.getWorkerDetails(timestamp=9)
-
-
 if __name__ == "__main__":
     main()
