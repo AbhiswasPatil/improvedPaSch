@@ -22,11 +22,12 @@ class PaSch:
         self.functions = functions
         self.packages = packages
         self.totalRequests = 0
-        self.cacheHits = 0
+        self.cacheHits1 = 0
+        self.cacheHits2 = 0
         self.cacheMiss = 0
 
     def getCacheHitAndMissDetails(self):
-        return {"totalRequests":self.totalRequests,"cacheHits":self.cacheHits,"cacheMiss":self.cacheMiss}
+        return {"totalRequests":self.totalRequests,"cacheHits1":self.cacheHits1,"cacheHits2":self.cacheHits2,"cacheMiss":self.cacheMiss}
 
     def getLoad(self, worker_id, timestamp):
         workerNodes = self.workers
@@ -194,7 +195,7 @@ class PaSch:
                 print("CACHE HIT ON NODE :",self.workers[index_of_chosen_node_to_run].worker_id, "for package :", pkg)
                 #as cache is hit, we will remove largest packag's time from time of execution
                 finalTimeOfFunctionExecution -= package_object.package_size
-                self.cacheHits = self.cacheHits + 1
+                self.cacheHits1 = self.cacheHits1 + 1
             else :
                 print("CACHE missed !!!! ON NODE :",self.workers[index_of_chosen_node_to_run].worker_id, "for package :",pkg)
                 self.cacheMiss = self.cacheMiss + 1
@@ -273,7 +274,7 @@ class PaSch:
                     
                     # ONLY CONSIDERING P1
                     finalTimeOfFunctionExecution -= package_object1.package_size
-                    self.cacheHits = self.cacheHits + 1
+                    self.cacheHits2 = self.cacheHits2 + 1
                     
                 else :
                     print("CACHE missed !!!! ON NODE :",self.workers[index_of_chosen_node_to_run].worker_id, "for package :",pkg1)
@@ -284,7 +285,7 @@ class PaSch:
                 
                 #as cache is hit for p0, we need not to see for p1 
                 finalTimeOfFunctionExecution -= package_object0.package_size
-                self.cacheHits = self.cacheHits + 1
+                self.cacheHits1 = self.cacheHits1 + 1
 
             else :
                 print("CACHE missed !!!! ON NODE :",self.workers[index_of_chosen_node_to_run].worker_id, "for package :",pkg0)
@@ -299,7 +300,7 @@ class PaSch:
                     #as cache is hit, we will remove largest packag's time from time of execution
                     finalTimeOfFunctionExecution -= package_object1.package_size
                     
-                    self.cacheHits = self.cacheHits + 1
+                    self.cacheHits2 = self.cacheHits2 + 1
                 else :
                     print("CACHE missed !!!! ON NODE :",self.workers[index_of_chosen_node_to_run].worker_id, "for package :",pkg1)
                     self.cacheMiss = self.cacheMiss + 1
