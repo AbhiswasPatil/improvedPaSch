@@ -144,7 +144,7 @@ def main():
             
             CHR_calculation_time.append(curr_time)
             cacheObj = scheduler.getCacheHitAndMissDetails()
-            CHR_calculation_variable.append((cacheObj["cacheHits1"]+cacheObj["cacheHits2"])/cacheObj["totalRequests"])
+            CHR_calculation_variable.append(100*(cacheObj["cacheHits1"]+cacheObj["cacheHits2"])/cacheObj["totalRequests"])
 
         
         print("FINAL CACHE HITS/MISS DETAILS:",scheduler.getCacheHitAndMissDetails())
@@ -156,11 +156,11 @@ def main():
         plt.savefig('CDF.png')
 
         plt.figure()
-        plt.plot(CHR_calculation_time,CHR_calculation_variable)
+        plt.scatter(CHR_calculation_time,CHR_calculation_variable, s=1)
         plt.title('CHR calculation')
         plt.xlabel('Time')
         plt.ylabel('CHR value')
-        plt.savefig('CHR.png')
+        plt.savefig('CHR.png',dpi=3000)
 
 if __name__ == "__main__":
     main()
