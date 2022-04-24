@@ -1,9 +1,12 @@
 import json
+import statistics
+from statistics import mean
+
 from worker import Worker
 from function import Function
 from package import Package
 from paSch import PaSch
-
+from matplotlib import pyplot as plt
 
 def main():
 
@@ -112,14 +115,52 @@ def main():
                 global_fn, global_pkgs)
 
         fn_execution = pkgs["functions"]
+
+
+        CDF_calculation_time = []
+        CDF_calculation_variable = []
+
+        CHR_calculation_time = []
+        CHR_calculation_variable = []
+
         for i in range (0,len(fn_execution)) :
-            print(fn_execution[i])     
-            print(scheduler.assignWorker(fn_execution[i]["fid"],fn_execution[i]["timestamp"]))   
+            print(fn_execution[i])
+
+            curr_fid = fn_execution[i]["fid"]
+            curr_time = fn_execution[i]["timestamp"]
+            
+            print(scheduler.assignWorker(curr_fid,curr_time))
+            list_of_workers = scheduler.getWorkerDetails(curr_time)
+            new_list_of_workers = [] 
+            
+            for x in list_of_workers:
+                new_list_of_workers.append(x["currentLoad"])  
+
+            sd_of_list = statistics.pstdev(new_list_of_workers)
+            mean_of_list = mean(new_list_of_workers)
+
+            CDF_calculation_time.append(curr_time)
+            CDF_calculation_variable.append(sd_of_list/mean_of_list)
+            
+            CHR_calculation_time.append(curr_time)
+            cacheObj = scheduler.getCacheHitAndMissDetails()
+            CHR_calculation_variable.append((cacheObj["cacheHits1"]+cacheObj["cacheHits2"])/cacheObj["totalRequests"])
+
         
-        print(scheduler.getCacheHitAndMissDetails())
-        print(scheduler.getWorkerDetails(fn_execution[-1]["timestamp"]))
-        
-    
+        print("FINAL CACHE HITS/MISS DETAILS:",scheduler.getCacheHitAndMissDetails())
+        # print(scheduler.getWorkerDetails(fn_execution[-1]["timestamp"]))
+        plt.plot(CDF_calculation_time,CDF_calculation_variable)
+        plt.title('CDF calculation')
+        plt.xlabel('Time')
+        plt.ylabel('CDF value')
+        plt.savefig('CDF.png')
+
+        plt.figure()
+        plt.plot(CHR_calculation_time,CHR_calculation_variable)
+        plt.title('CHR calculation')
+        plt.xlabel('Time')
+        plt.ylabel('CHR value')
+        plt.savefig('CHR.png')
 
 if __name__ == "__main__":
     main()
