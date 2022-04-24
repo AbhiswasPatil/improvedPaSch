@@ -101,6 +101,7 @@ def main():
         print("2.Choose Test case number")
         op = int(input("Choose an option: "))
         print(op," :test case will be run")
+        
         pkgs_file = open('test/'+str(op)+'.json')
         pkgs = json.load(pkgs_file)
 
@@ -137,7 +138,7 @@ def main():
                 new_list_of_workers.append(x["currentLoad"])  
 
             sd_of_list = statistics.pstdev(new_list_of_workers)
-            mean_of_list = mean(new_list_of_workers)
+            mean_of_list = statistics.mean(new_list_of_workers)
 
             CDF_calculation_time.append(curr_time)
             CDF_calculation_variable.append(sd_of_list/mean_of_list)
@@ -160,7 +161,27 @@ def main():
         plt.title('CHR calculation')
         plt.xlabel('Time')
         plt.ylabel('CHR value')
-        plt.savefig('CHR.png',dpi=3000)
+        plt.savefig('CHR.png')
+
+        dict = {}
+        dict["time"] = CHR_calculation_time
+        dict["chr"] = CHR_calculation_variable 
+        with open("chr.json", "w") as outfile:
+            json.dump(dict, outfile)
+
+        dict = {}
+        dict["time"] = CDF_calculation_time
+        dict["cdf"] = CDF_calculation_variable 
+        with open("cdf.json", "w") as outfile:
+            json.dump(dict, outfile)
+        
+        dict = {}
+        dict["totalRequests"] = cacheObj["totalRequests"]
+        dict["cacheHits"] = cacheObj["cacheHits1"] + cacheObj["cacheHits2"]
+        dict["cacheMiss"] = cacheObj["cacheMiss"]
+        dict["leastLoadedCalls"] = cacheObj["LEASTLOADEDCALLS"]
+        with open("requestDetails.json", "w") as outfile:
+            json.dump(dict, outfile)
 
 if __name__ == "__main__":
     main()
