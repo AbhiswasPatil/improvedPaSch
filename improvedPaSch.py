@@ -128,7 +128,8 @@ class ImprovedPaSch:
 
     def assignWorker(self,function_id,timestamp):
         
-        workerNodes = self.workers
+        old_workerNodes = self.workers
+        workerNodes = self.updateStaleWorkerData(old_workerNodes, timestamp)
         self.totalRequests = self.totalRequests + 1
 
         # if(len(workerNodes) == 0):
