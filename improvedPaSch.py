@@ -1,15 +1,8 @@
-#it will also have consistentHash, and will use it to access worker_id (consitentHash <-> workers)
-
 import math
-import string
-
-from requests import delete
 from consistentHash import ConsistentHash
 from GLOBAL import *
-from function import Function
-from worker import Worker
 
-class PaSch:
+class ImprovedPaSch:
     # workers: Worker[], functions : Function[], packages : Package[]
     def __init__(self,hashworkers, workers, functions, packages):
         
